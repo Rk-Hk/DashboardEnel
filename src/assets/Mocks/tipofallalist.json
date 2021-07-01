@@ -1,0 +1,28 @@
+{
+    "RECORDS": [
+        {
+            "faultType": "CORTO CIRCUITO"
+        },
+        {
+            "faultType": "FALLA A TIERRA"
+        },
+        {
+            "faultType": "EMERGENCIA"
+        },
+        {
+            "faultType": "SOBRECARGA"
+        },
+        {
+            "faultType": "CORR.INSERCION"
+        },
+        {
+            "faultType": "ERROR OPERACION"
+        },
+        {
+            "faultType": "DEFICIT DE GENERACION"
+        },
+        {
+            "faultType": ""
+        }
+    ]
+}

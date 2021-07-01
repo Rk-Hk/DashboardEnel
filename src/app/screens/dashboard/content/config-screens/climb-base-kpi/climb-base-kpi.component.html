@@ -1,0 +1,33 @@
+<div class="content container-fluid" id="dms-uploadfile-kpi">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-0">
+                <div class="card-header">
+                    Subir base de Interrupciones
+                  </div>
+                  <div class="card-body">
+                    <!-- <div class="input-group fileSelectInput">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" type="file"
+                        id="file"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
+                        (change)="handleSelectfile($event.target.files)">
+                        <label class="custom-file-label labelSelectInput" for="inputGroupFile04">{{fileToUpload ? fileToUpload.name : 'Seleccionar archivo excel'}}</label>
+                      </div>
+                      <div class="input-group-append">
+                        <button [disabled]="!fileToUpload"  class="btn btn-outline-success btn-uploadFile" type="button" id="inputGroupFileAddon04" (click)="eventApiUploadFile()"> <i class="material-icons">cloud_upload</i> SUBIR BASE</button>
+                      </div>
+                    </div> -->
+                    <!-- <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
+                        (change)="handleSelectfile($event.target.files)">
+                        <button  [disabled]="!fileToUpload" class="btn btn-outline-success btn-uploadFile" type="button" id="inputGroupFileAddon04"  (click)="eventApiUploadFile()"><i class="las la-cloud-upload-alt"></i> SUBIR BASE</button>
+                      </div>
+                  </div>
+            </div>
+        </div>
+      </div>
+</div>

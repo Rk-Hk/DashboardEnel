@@ -1,0 +1,22 @@
+<div class="">
+  <div class="">
+    <div class="">
+      <div class="modal-header">
+        <h5 class="modal-title">Registrar nueva empresa </h5>
+        <button type="button" class="btn-close" (click)="onNoClick()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="companyForm" class="form-horizontal form-material">
+          <div class="form-group col-md-12 m-b-20"
+            [ngClass]="company?.invalid && company.touched ? 'has-error' : 'has-success'">
+            <input formControlName="company" type="text" class="form-control" placeholder="Nombre de empresa">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button (click)="onClick()" class="btn btn-primary btn-rounded" [disabled]="!companyForm.valid">Agregar
+          empresa</button>
+      </div>
+    </div>
+  </div>
+</div>

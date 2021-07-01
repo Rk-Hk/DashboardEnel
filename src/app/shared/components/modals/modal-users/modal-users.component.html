@@ -1,0 +1,45 @@
+<div class="">
+  <div class="modal-header">
+    <h5 class="modal-title">Registrar nuevo usuario</h5>
+    <button type="button" class="btn-close" (click)="onNoClick()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="userForm" class="form-horizontal form-material">
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Número de documento</mat-label>
+        <input matInput formControlName="dni" type="text" placeholder="DNI"
+          [appInputPattern]="controlsConfig.dni.pattern" [minLength]="controlsConfig.dni.minlength"
+          [maxLength]="controlsConfig.dni.maxlength" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Nombres y apellidos</mat-label>
+        <input matInput formControlName="fullName" type="text" placeholder="Nombres y apellidos"
+          [appInputPattern]="controlsConfig.nombre.pattern" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Rol de usuario</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let rol of listRoles" [value]="rol.id">
+            {{ rol.nameRole }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Empresa</mat-label>
+        <mat-select formControlName="sector">
+          <mat-option *ngFor="let company of listCompanies" [value]="company">
+            {{ company.companyName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="onClick()" class="btn btn-primary btn-rounded" [disabled]="!userForm.valid">
+      Agregar usuario
+    </button>
+  </div>
+</div>

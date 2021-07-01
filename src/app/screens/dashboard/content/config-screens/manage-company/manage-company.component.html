@@ -1,0 +1,39 @@
+<div class="content container-fluid" id="dms-manage-company">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div style="width: 100%; align-items: baseline;" class="d-flex justify-content-between">
+            <h4 class="">Listado de empresas</h4>
+            <button style="font-size: 0.8rem;" (click)="openModalAddCompany()" type="button"
+              class="btn btn-primary btn-rounded"><i class="las la-plus"></i> Agregar empresa</button>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div *ngIf="listCompanies" class="table-responsive" [ngClass]="listCompanies.length > 7 ? 'table-scroll' : ''">
+            <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list" data-page-size="10">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nombre</th>
+                  <th>Última modificación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of listCompanies">
+                  <td *ngIf="user.id">{{ user.id }}</td>
+                  <td *ngIf="user.companyName">{{ user.companyName }}</td>
+                  <td *ngIf="user.updatedAt">{{ user.updatedAt | date }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

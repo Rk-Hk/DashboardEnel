@@ -1,0 +1,28 @@
+
+.loader-hidden {
+  visibility: hidden;
+}
+
+.loader-overlay {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  //bottom: 0;
+  right: 0;
+  z-index: 500000;
+}
+
+.protectPage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  background-image: url('/assets/img/icon/loading.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 400000;
+}

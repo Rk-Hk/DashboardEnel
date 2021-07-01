@@ -1,0 +1,145 @@
+<div class="content container-fluid">
+  <div class="row mb-2">
+    <div class="col-12">
+      <app-filters-dashboard-kpi [filterModify]="filterModify"
+        (eventFiltersSelected)="handleGetFiltersSelected($event)"></app-filters-dashboard-kpi>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-3 col-sm-6 col-xs-6">
+      <app-card-dashboard-kpi [titleKPI]="'Clientes Afectados'"
+        [valueKPI]="sumClientesAfectados? sumClientesAfectados : '-'" [medidKPI]="''" [iconKPI]="'las la-users'">
+      </app-card-dashboard-kpi>
+    </div>
+    <div class="col-md-3 col-sm-6  col-xs-6">
+      <app-card-dashboard-kpi [titleKPI]="'Clientes hora'" [valueKPI]="sumClientsHours ? sumClientsHours : '-'"
+        [medidKPI]="''" [iconKPI]="'las la-user-clock'"></app-card-dashboard-kpi>
+    </div>
+    <div class="col-md-3 col-sm-6  col-xs-6">
+      <app-card-dashboard-kpi [titleKPI]="'T. de afectación'" [valueKPI]="sumTime" [medidKPI]="'h'"
+        [iconKPI]="'las la-clock'">
+      </app-card-dashboard-kpi>
+    </div>
+    <div class="col-md-3 col-sm-6  col-xs-6">
+      <app-card-dashboard-kpi [titleKPI]="'T. medio de atención'" [valueKPI]=" sumAverageTime" [medidKPI]="'h'"
+        [iconKPI]="'las la-stopwatch'"></app-card-dashboard-kpi>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <!-- Section GRAPHIC LINEAL -->
+      <div class="col-lg-12 col-md-12">
+        <div class="card mt-0 card-chart">
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <h4 class="card-title">Fallas en el tiempo</h4>
+              </div>
+              <!-- <div class="col-3">
+          <form [formGroup]="timerForm">
+          <mat-form-field appearance="outline">
+
+            <mat-label>Intervalo de tiempo</mat-label>
+            <mat-select formControlName="typeSelected" disabled>
+              <mat-option *ngFor="let itemTiempo of listTiposTiempos" [value]="itemTiempo.id" (click)="eventGetDataDashboardApi()">
+                {{itemTiempo.desc}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        </div> -->
+            </div>
+
+            <!-- <app-barchart-graphic [data]="dataFaultsByFeeder"></app-barchart-graphic> -->
+            <app-linear-graphic [dataLinearChart]="dataFaultsByDates" [rangeSelected]="rangeSelected">
+            </app-linear-graphic>
+
+          </div>
+        </div>
+      </div>
+      <!--FIN Section GRAPHIC LINEAL -->
+
+      <!-- Section GRAPHIC PIE -->
+      <div class="col-lg-6 col-sm-12">
+        <div class="card mt-0 card-chart">
+          <div class="card-body">
+            <h4 class="card-title">Fallas por responsable</h4>
+            <app-pie-graphic [dataGraphic]="dataFaultsByResponsable"></app-pie-graphic>
+          </div>
+        </div>
+      </div>
+      <!--FIN Section GRAPHIC PIE -->
+    </div>
+
+    <!-- Lista de ALIMENTADORES MAS FRECUENTES -->
+    <div class="col-md-3">
+      <div class="card card-chart">
+        <div class="card-body">
+          <h4 class="card-title">Alimentadores con más fallas</h4>
+          <ul *ngIf="dataFaultsByFeeder && dataFaultsByFeeder.length >0; else notDataFaultsByFeeder" class="list-group">
+            <li *ngFor="let item of dataFaultsByFeeder, index as i" class="rankList list-group-item">
+              <a (click)="eventConsumeDataByClick('filterFeederFault',item.feeder)"
+                class=" d-flex justify-content-between align-items-center">
+                <small>{{item.feeder}} - <span
+                    class="name-jefe">{{item.jefeGuard ? item.jefeGuard.split(',')[0] : '-'}}</span></small>
+                <span class="badge badge-pill">{{item.conteo}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <ng-template #notDataFaultsByFeeder>
+          <div class="card-footer">
+            <i>No se encontraron resultados</i>
+          </div>
+        </ng-template>
+      </div>
+
+
+      <!-- Lista de FALLAS MAS FRECUENTES -->
+      <div class="card card-chart">
+        <div class="card-body">
+          <h4 class="card-title">Fallas más frecuentes</h4>
+          <ul *ngIf="listRankFaultType && listRankFaultType.length >0; else notlistRankFaultType" class="list-group">
+            <li *ngFor="let item of listRankFaultType, index as i" class="rankList list-group-item">
+              <a (click)="eventConsumeDataByClick('filterTypeFault',item.faultType)"
+                class=" d-flex justify-content-between align-items-center">
+                <small>{{item.faultType}}</small>
+                <span class="badge badge-pill">{{item.conteo}}</span>
+              </a>
+            </li>
+          </ul>
+          <ng-template #notlistRankFaultType>
+            <div class="card-footer">
+              <i>No se encontraron resultados</i>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <!--FIN Lista de FALLAS MAS FRECUENTES -->
+
+      <!-- Lista de CAUSAS MAS FRECUENTES -->
+      <div class="card card-chart">
+        <div class="card-body">
+          <h4 class="card-title">Causas más frecuentes</h4>
+          <ul *ngIf="listRankReason && listRankReason.length >0; else notlistRankReason" class="list-group">
+            <li *ngFor="let item of listRankReason, index as i" class="rankList list-group-item">
+              <a (click)="eventConsumeDataByClick('filterCausa',item.reason)"
+                class=" d-flex justify-content-between align-items-center">
+                <small>{{item.reason}}</small>
+                <span class="badge badge-pill">{{item.conteo}}</span>
+              </a>
+            </li>
+          </ul>
+          <ng-template #notlistRankReason>
+            <div class="card-footer">
+              <i>No se encontraron resultados</i>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <!--FIN Lista de FALLAS MAS FRECUENTES -->
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,261 @@
+<div class="content container-fluid" id="dms-datastudio">
+    <div *ngIf="structureSelected">
+  
+      <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+          <h3 class="text-themecolor">Inspecciones de la estructura
+            {{structureSelected.structureType}}-{{structureSelected.code}} </h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+            <li class="breadcrumb-item active">Listado de Estructuras</li>
+            <li class="breadcrumb-item active">Detalle</li>
+          </ol>
+        </div>
+      </div>
+  
+      <!-- <app-table-detail [datasource]="datasource"></app-table-detail> -->
+  
+      <div *ngIf="listDetailStructure" class="table-responsive table-structures table-historyInpections">
+  
+        <mat-table #table [dataSource]="dataSource">
+  
+          <!-- strucutre Code-->
+          <ng-container matColumnDef="typeState">
+            <mat-header-cell *matHeaderCellDef> Tipo-Estado </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <i class="font_13rem"
+                [ngClass]="(element.deficiencyType=='ARBOL CERCANO')  ? 'text-success mdi mdi-pine-tree' : ' text-info mdi mdi-home' "></i>
+              <i class="font_13rem"
+                [ngClass]="(element.itWasCorrected)?'text-success mdi mdi-emoticon-happy':'text_color_danger mdi mdi-emoticon-sad'"></i>
+            </mat-cell>
+          </ng-container>
+  
+          <!-- Name Column -->
+          <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.structure.code}} </mat-cell>
+          </ng-container>
+  
+          <!-- Weight Column -->
+          <ng-container matColumnDef="chain">
+            <mat-header-cell *matHeaderCellDef> cadena </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.structure.chain}} </mat-cell>
+          </ng-container>
+          <!-- Weight Column -->
+          <ng-container matColumnDef="feeder">
+            <mat-header-cell *matHeaderCellDef> Alimentador </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div class="div_textcenter">{{element.structure.feeder}}</div>
+            </mat-cell>
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="obs_fecha">
+            <mat-header-cell *matHeaderCellDef> Fecha de Obs. </mat-header-cell>
+            <mat-cell class="observacion" *matCellDef="let element"> {{element.createdAt | date:'dd/MM/y HH:mm'}}
+            </mat-cell>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="qualification">
+            <mat-header-cell *matHeaderCellDef> Calificación </mat-header-cell>
+            <mat-cell class="observacion" *matCellDef="let element">
+              <div class="div_textcenter"> {{element.qualification}}</div>
+            </mat-cell>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="dv">
+            <mat-header-cell *matHeaderCellDef>
+              <div class="div_textcenter">DV</div>
+            </mat-header-cell>
+            <mat-cell class="observacion" *matCellDef="let element">
+              <div class="div_textright"> {{element.DV}}</div>
+            </mat-cell>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="dhlcdhra">
+            <mat-header-cell *matHeaderCellDef> DHLC/ DHRA </mat-header-cell>
+            <mat-cell class="observacion" *matCellDef="let element">
+              {{element.deficiencyType=='ARBOL CERCANO' ? element.a_DHRA : element.v_DHLC}} </mat-cell>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="dhlpdhba">
+            <mat-header-cell *matHeaderCellDef> DHLP/ DHBA </mat-header-cell>
+            <mat-cell class="observacion" *matCellDef="let element">
+              {{element.deficiencyType=='ARBOL CERCANO' ? element.a_DHBA : element.v_DHLP}} </mat-cell>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="obs_foto">
+            <mat-header-cell *matHeaderCellDef> Fotos </mat-header-cell>
+            <mat-cell class="observacion" *matCellDef="let element">
+              <button *ngIf="element.obs_photos" type="button" class="btn btn-link text-observacion_danger font_13rem"
+                (click)="displayImages(element.obs_photos, 'Levantamiento')" data-toggle="modal"
+                data-target="#listInspectionsPhotos">
+                <i class="mdi mdi-image-area"></i>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <!-- Levantamientos -->
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="lev_fecha">
+            <mat-header-cell class="header_obs" *matHeaderCellDef> Fecha de Lev. </mat-header-cell>
+            <mat-cell class="levantamiento" *matCellDef="let element">
+              {{element.lev_createdAt | date:'dd/MM/y HH:mm'}} </mat-cell>
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="lev_dv">
+            <mat-header-cell class="header_obs" *matHeaderCellDef>
+              <div class="div_textright"> DV </div>
+            </mat-header-cell>
+            <mat-cell class="levantamiento" *matCellDef="let element">
+              <div class="div_textright"> {{element.lev_DV}}</div>
+            </mat-cell>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="lev_dhlcdhra">
+            <mat-header-cell class="header_obs" *matHeaderCellDef> DHLC/ DHRA </mat-header-cell>
+            <mat-cell class="levantamiento" *matCellDef="let element">
+              {{element.deficiencyType=='ARBOL CERCANO' ? element.lev_a_DHBA : element.lev_v_DHLP}} </mat-cell>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="lev_dhlpdhba">
+            <mat-header-cell class="header_obs" *matHeaderCellDef> DHLP/ DHBA </mat-header-cell>
+            <mat-cell class="levantamiento" *matCellDef="let element">
+              {{element.deficiencyType=='ARBOL CERCANO' ? element.lev_a_DHBA : element.lev_v_DHLP}} </mat-cell>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="lev_foto">
+            <mat-header-cell class="header_obs" *matHeaderCellDef> Fotos </mat-header-cell>
+            <mat-cell class="levantamiento" *matCellDef="let element">
+              <button *ngIf="element.lev_photos" type="button" class="btn btn-link text-observacion_success font_13rem"
+                (click)="displayImages(element.lev_photos, 'Levantamiento')" data-toggle="modal"
+                data-target="#listInspectionsPhotos">
+                <i class="mdi mdi-image-area"></i>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="detail">
+            <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div class="div_textcenter font_13rem">
+                <button type="button" class="btn btn-link btn-detalle font_13rem"
+                  (click)="showInspectionDetail(element)" data-toggle="modal" data-target="#detailInspections">
+                  <i class="mdi mdi-library-plus"></i>
+                </button>
+              </div>
+            </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+  
+      <!-- <div class="card" *ngFor="let detail of listDetailStructure" style="width: 100%;">
+        <div class="card-body">
+          <div>
+            <p><span class="font-weight-bold">Tipo de Observación</span> {{detail.deficiencyType}}</p>
+            <p><span class="font-weight-bold">Distrito: </span> {{detail.distrito}}</p>
+            <p><span class="font-weight-bold">Dirección: </span>{{detail.direccion}} </p>
+            <app-table-detail [detail]="detail"></app-table-detail>
+  
+          </div>
+        </div>
+  
+      </div> -->
+    </div>
+  </div>
+  
+  
+  
+  <div class="modal fade" id="listInspectionsPhotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Fotos de {{typePhotos}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div *ngIf="lsImagesSelected" class="modal-body">
+          <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div *ngFor="let itemImage of lsImagesSelected, let i = index" [ngClass]="{'active': i===0}"
+                class="carousel-item active" data-interval="10000">
+                <a target="_blanck" [href]="itemImage"><img src="{{itemImage}}" class="d-block w-100" alt="..."></a>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="modal fade" id="detailInspections" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div *ngIf="elementDetailSelected" class="modal-header">
+          <div class="d-flex"><h5 class="modal-title mr-3 text-info" id="exampleModalLabel">{{elementDetailSelected.deficiencyType}}</h5><span  [ngClass]="(elementDetailSelected.itWasCorrected ==false) ? 'text-danger':'text-success'"><b>{{elementDetailSelected.itWasCorrected ==false ? 'pendiente': 'levantado'}}</b></span></div>
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div *ngIf="elementDetailSelected">
+          <div class="container  mb-4">
+            <p class="text-info">DETALLE DE OBSERVACIÓN</p>
+            <div class="row px-3">
+              <div class="col-6"> <span>Dirección: </span> {{elementDetailSelected.direccion}}</div>
+              <div class="col-6"> <span>Distrito: </span> {{elementDetailSelected.distrito}}</div>
+              <div class="col-6"> <span>Nombre de Cliente: </span> {{elementDetailSelected.v_cliente}}</div>
+              <ng-container *ngIf="elementDetailSelected.deficiencyType=='VIVIENDA CERCANO'">
+                <div class="col-6"> <span>Cliente Notificado: </span> {{elementDetailSelected.v_notificado}}</div>
+                <div class="col-6"> <span>Sumnistro: </span> {{elementDetailSelected.v_suministro}}</div>
+                <div class="col-6"> <span>Tipo de Constr.: </span> {{elementDetailSelected.v_typeConstruction}}</div>
+              </ng-container>
+              <ng-container *ngIf="elementDetailSelected.deficiencyType=='ARBOL CERCANO'">
+                <div class="col-6"> <span>Cant. Arboles: </span> {{elementDetailSelected.cantArbol}}</div>
+                <div class="col-6"> <span>Acceso a Grúa: </span> {{elementDetailSelected.craneAccess}}</div>
+                <div class="col-6"> <span>Tipo de Arbol: </span> {{elementDetailSelected.tipoArbol}}</div>
+                <div class="col-6"> <span>Árbol sobre la Red: </span> {{elementDetailSelected.treeOverNet}}</div>
+              </ng-container>
+              
+              <div class="col-12"><span>Comentario:</span> <br><textarea style="width: 100%;" [disabled]=true>{{elementDetailSelected.detail}}</textarea></div>
+            </div>
+          </div>
+          <div class="container mb-4">
+            <p class="text-info">DETALLE DE LEVANTAMIENTO</p>
+            <div class="row px-3" *ngIf="elementDetailSelected.lev_createdAt else noLevantado">
+              <ng-container *ngIf="elementDetailSelected.deficiencyType=='VIVIENDA CERCANO'">
+                <div class="col-6"> <span>Escuadron Ejecutor: </span> {{elementDetailSelected.lev_executingSquad}}</div>
+              </ng-container>
+              <!-- <ng-container *ngIf="elementDetailSelected.deficiencyType=='ARBOL CERCANO'">
+                <div class="col-6"> <span>Calificacin: </span> {{elementDetailSelected.lev_executingSquad}}</div>
+              </ng-container> -->
+              
+              <div class="col-12"><span>Comentario:</span> <br><textarea style="width: 100%;" [disabled]=true>{{elementDetailSelected.lev_detail}}</textarea></div>
+            </div>
+            <ng-template #noLevantado>
+              <div class="row">
+                <div class="col-12 text-center"><i class="text-danger"><b>Inspección aún no ha sido levantado</b></i></div>
+              </div>
+            </ng-template>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>

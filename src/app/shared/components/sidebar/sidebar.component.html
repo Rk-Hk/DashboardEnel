@@ -1,0 +1,35 @@
+
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <img class="logo-complete" src="assets/img/icon/enel-logo-color.png" height="40px" alt="logo enel">
+        <img class="logo-partial" src="assets/img/icon/enel-logo-e.png" height="40px" alt="logo enel">
+        <!-- <h2><span class="las la-clinic-medical"></span> Hospital</h2> -->
+    </div>
+    <!-- Secciones del dashboard -->
+    <div class="sidebar-menu">
+        <ul class="nav">
+            <li routerLinkActive="active" *ngFor="let menuItem of menuItems" matTooltip="{{menuItem.title}}" matTooltipPosition="right" [matTooltipDisabled]="!menuItem.path" class="{{menuItem.class}} nav-item">
+                <a *ngIf="menuItem.path" class="nav-link" [routerLink]="[menuItem.path]"> <span class="{{menuItem.icon}}"></span>
+                <span>{{menuItem.title}}</span></a>
+
+                <a *ngIf="!menuItem.path" style="cursor: pointer; position: relative;" class=" nav-link"  data-bs-toggle="collapse"  role="button"  aria-expanded="false" [attr.data-bs-target]="'#'+menuItem.idGroup" [attr.aria-controls]="menuItem.idGroup"> 
+                    <span class="{{menuItem.icon}}"></span>
+                    
+                    <i style="position: absolute; right: 14px; top: 8px;" class="material-icons">keyboard_arrow_down</i>
+                    <span>{{menuItem.title}}</span>
+                </a>
+
+                <div *ngIf="menuItem.subItems"   class="collapse multi-collapse" id="{{menuItem.idGroup}}">
+                    <li routerLinkActive="active" *ngFor="let subItem of menuItem.subItems"  matTooltip="{{subItem.title}}"  matTooltipPosition="right" class="{{subItem.class}} nav-item">
+                        <a class="nav-link" [routerLink]="[subItem.path]"> <span class="{{subItem.icon}}"></span>
+                            <span>{{subItem.title}}</span></a>
+                    </li>
+                  </div>
+            </li>
+            <li matTooltip="Cerrar sesión" matTooltipPosition="right" class="active-bottom">
+                <a class="nav-link" (click)="eventCloseSession()"> <span class="las la-sign-out-alt"></span>
+                <span>Cerrar sesión</span></a>
+            </li>
+        </ul>
+    </div>
+</div>

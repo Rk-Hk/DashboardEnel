@@ -1,0 +1,97 @@
+
+<section id="login-register" class="login-register login-sidebar">
+    <!-- <div class="login-register_img">
+      </div> -->
+    <div class="">
+      <div class="row">
+        <div class="col-4 text-center" >
+          <img class="photoStyle" src="../assets/img/gallery/Imagen1enel.jpg" alt="">
+          <img class="photoStyle" src="../assets/img/gallery/Imagen2enel.jpg" alt=""> 
+        </div>
+        <div class="col-4" style="margin: auto;">
+  
+          <div class="login-box card">
+            <div class="card-body">
+              <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" class="form-horizontal form-material" id="loginform">
+                <div class="text-center login-register_logo">
+                  <img height="60" src="../assets/img/enel-logo-color.png" alt="enel logo" />
+                </div>
+                <p class="text-center mt-3" style="font-size: 1rem;">Unidad Operativa Norte Chico</p>
+
+                <div style="padding: 20px;">
+                <div class="inputContainer">
+                    <mat-form-field appearance="outline"  style="width: 100%;">
+                        <mat-label>Número de documento</mat-label>
+                        <input id="dni" [appInputPattern]="controlsConfig.dni.pattern"[minLength]="controlsConfig.dni.minlength"
+                        [maxLength]="controlsConfig.dni.maxlength" matInput type="text" formControlName="dni" autocomplete="off" >
+                      </mat-form-field>
+                </div>
+                <div class="inputContainer">
+                    <mat-form-field appearance="outline"  style="width: 100%;">
+                        <mat-label>Contraseña</mat-label>
+                        <input id="pwd" matInput type="password" formControlName="pwd">
+                      </mat-form-field>
+                </div>
+                  
+                  <div class="form-group text-center">
+                    <div class="col-xs-12">
+                      <button class="btn btn-info btn-lg btn-block text-uppercase" type="submit"
+                        [disabled]="!loginForm.valid">
+                        Ingresar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+      
+              </form>
+              <p class="text-center mb-0">Professional Solution Consulting</p>
+              <p class="text-center">@PSC - 2020</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 text-center">
+          <img class="photoStyle" src="../assets/img/gallery/Imagen3enel.jpg" alt="">
+          <img class="photoStyle" src="../assets/img/gallery/Imagen4enel.jpg" alt="">
+        </div>
+      </div>
+  
+      
+  
+    </div>
+  
+    <ng-template #modalUpdatePwd>
+      <div class="">
+        <h4 class="text-center">
+          ¡Bienvenido!<br>
+          Por favor, es importante actualizar<br> su contraseña.
+        </h4>
+        <form [formGroup]="updatePwdForm" class="form-horizontal form-material">
+          <div class="form-group col-md-12 m-b-20"
+            [ngClass]="pwd1?.invalid && pwd1.touched ? 'has-error' : 'has-success'">
+            <input formControlName="pwd1" type="password" class="form-control" placeholder="Contraseña">
+          </div>
+          <div class="form-group m-b-0 col-md-12" [ngClass]="pwd2?.invalid && pwd2.touched ? 'has-error' : 'has-success'">
+            <input formControlName="pwd2" type="password" class="form-control" placeholder="Repita contraseña">
+          </div>
+  
+          <div class="form-group m-b-0 m-t-20 col-md-12" *ngIf="pwd1.touched && !validatedUpdateForm">
+            <span class="form-control text-error">Las contraseñas no coinciden.</span>
+          </div>
+  
+          <div class="modal-footer">
+            <button (click)="sendUpdatePwd()" type="submit"
+              class="btn btn-info btn-lg btn-block text-uppercase btn-rounded"
+              [disabled]="!validatedUpdateForm">Actualizar contraseña</button>
+          </div>
+  
+        </form>
+      </div>
+    </ng-template>
+  </section>
+  
+  
+  
+  <!-- ============================================================== -->
+  <!-- End Wrapper -->
+  <!-- ============================================================== -->
+  

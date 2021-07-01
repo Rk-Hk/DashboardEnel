@@ -1,0 +1,59 @@
+
+<div id="filters-dashboard" class="card mt-0">
+    <form *ngIf="filtersForm" [formGroup]="filtersForm" id="filtersForm" class="px-2 pt-3 row" name="filtersForm">
+
+          <div class="content-filters">
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccione el rango</mat-label>
+                <input matInput formControlName="filterRangeDate" type="text" ngxDaterangepickerMd
+                  (rangeClicked)="rangeClicked($event)" (datesUpdated)="datesUpdated($event)" [closeOnAutoApply]="true"
+                  [locale]="{format: 'DD-MM-YYYY'}" [autoApply]="true" readonly />
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline">
+          
+                <mat-label>Seleccione la causa</mat-label>
+                <mat-select formControlName="filterCausa">
+                  <mat-option *ngFor="let itemCausa of listCausas" [value]="itemCausa.desc" (click)="eventConsumeDataBySelect()">
+                    {{itemCausa.desc}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione el alimentador</mat-label>
+                <input matInput formControlName="filterFeederFault" type="text" list="codes" autocomplete="off"
+                  (change)="eventConsumeDataBySelect()">
+                <datalist id="codes">
+                  <option *ngFor="let itemFeeder of listFeeders" [value]="itemFeeder.feeder">{{itemFeeder.feeder}}</option>
+                </datalist>
+                <!-- <mat-select formControlName="filterFeederFault">
+                        <mat-option *ngFor="let itemCausa of listCausas" [value]="itemCausa.desc" (click)="eventConsumeDataBySelect()">
+                          {{itemCausa.desc}}</mat-option>
+                      </mat-select> -->
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Tipo de falla</mat-label>
+                <mat-select formControlName="filterTypeFault">
+                  <mat-option *ngFor="let itemTF of listTiposFalla" [value]="itemTF.faultType"
+                    (click)="eventConsumeDataBySelect()">{{itemTF.faultType}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Responsable</mat-label>
+                <mat-select formControlName="filterResponsable">
+                  <mat-option *ngFor="let itemResp of listResponsables" [value]="itemResp.desc"
+                    (click)="eventConsumeDataBySelect()">
+                    {{itemResp.desc}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button type="button" style="padding:10px;" class="btn btn-link text-info btn-refact" (click)="clearDataForm()">
+                <span class="las la-broom"></span> Limpiar
+              </button>
+          </div>
+      
+      </form>
+      
+</div>

@@ -1,0 +1,115 @@
+<div class="content container-fluid" id="dms-inspections">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex flex-row-reverse mb-4 list-buttons">
+          <div class="ml-3">
+            <button type="button" class="btn btn-primary" (click)="openModalCreateStructure()"><i class="las la-plus"></i> Agregar Estructura</button>
+          </div>
+          <div class="ml-3">
+            <button type="button" class="btn btn-success" (click)="downloadStructuresExcel()"><i class="las la-cloud-download-alt"></i> Exportar </button>
+          </div>
+          <div class="ml-3">
+            <button type="button" class="btn btn-warning" (click)="eventGotoInspectionsHistory()"><i class="las la-history"></i> Historial de Inspecciones</button>
+          </div>
+          <div class="ml-3">
+            <button type="button" class="btn btn-danger" (click)="onclickNavigateDashboardDMS()"><i class="las la-chart-bar"></i> Indicadores DMS</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="filtersForm" class=" col-12 text-right">
+        <app-filters-dms [filterModify]="filterModify"
+        (eventFiltersSelected)="handleGetFiltersSelected($event)"></app-filters-dms>
+      </div>
+
+
+        <div class="col-12">
+            
+
+
+          <div class="card">
+            <div class="card-body">
+              
+    
+              
+    
+    
+              <div class="table-responsive table-structures">
+    
+                <mat-table #table [dataSource]="dataSource">
+    
+                  <!-- structure Code-->
+                  <ng-container matColumnDef="code">
+                    <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
+                  </ng-container>
+              
+                  <!-- structure type -->
+                  <ng-container matColumnDef="structureType">
+                    <mat-header-cell *matHeaderCellDef> Tipo de Estructura </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.structureType}} </mat-cell>
+                  </ng-container>
+              
+                  <!-- structure feeder -->
+                  <ng-container matColumnDef="feeder">
+                    <mat-header-cell *matHeaderCellDef> Alimentador </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.feeder}} </mat-cell>
+                  </ng-container>
+              
+                  <!-- structure circuit id -->
+                  <ng-container matColumnDef="circuitId">
+                    <mat-header-cell *matHeaderCellDef> Circuito </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.circuitId}} </mat-cell>
+                  </ng-container>
+                  <!-- structure chain -->
+                  <ng-container matColumnDef="chain">
+                    <mat-header-cell *matHeaderCellDef> Cadena </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.chain}} </mat-cell>
+                  </ng-container>
+                  <!-- structure location -->
+                  <ng-container matColumnDef="location">
+                    <mat-header-cell *matHeaderCellDef> Ubicación </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                      <div style="width: 100%;" class="text-center"><a *ngIf='element.location' target="_blanck" style="font-size: 1.1rem;"
+                        [href]="'https://www.google.com/maps/search/?api=1&query='+element.location"><i class="mdi mdi-map-marker-radius"></i>
+                        </a></div>
+                    </mat-cell>
+                  </ng-container>
+                  <!-- structure Actions -->
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <div  class="text-center">
+                        <a *ngIf='!element.itWasDeleted' style="font-size: 1.1rem; color: #e6294b;" (click)="openConfirmModal(element.id, element.code, element.structureType)"><i class="mdi mdi-delete"></i>
+                        </a>
+                        <i class="text-danger" *ngIf='element.itWasDeleted' >Eliminado</i>
+                      </div> 
+                    </mat-cell>
+                  </ng-container>
+                  <!-- structure inspections -->
+                  <ng-container matColumnDef="inspections">
+                    <mat-header-cell *matHeaderCellDef> Inspecciones </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      
+                      <button class="show-detail"  [disabled]="!(element.observaciones && element.observaciones.length>0)" (click)="getStructureDetail(element)">Ver detalle <span class="las la-arrow-right"></span></button>
+                      <!-- <button [disabled]="!(element.observaciones && element.observaciones.length>0)" type="button" class="btn btn-info btn-rounded"
+                        >Detalle</button> -->
+                    </mat-cell>
+                  </ng-container>
+              
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator
+                [length]="cantTotalResults"
+                   [pageSize]="cantRowsTable"
+                   (page)="onPaginateChange($event)">
+                   
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+</div>

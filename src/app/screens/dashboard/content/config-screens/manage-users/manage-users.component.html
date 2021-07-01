@@ -1,0 +1,126 @@
+<div class="content container-fluid" id="dms-uploadfile-kpi">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+            <div style="width: 100%; align-items: baseline;" class="d-flex justify-content-between">
+                <h4 class="">Listado de usuarios</h4>
+                <button style="font-size: 0.8rem;" (click)="openModalAddUser()" type="button"
+                  class="btn btn-primary btn-rounded"><i class="las la-plus"></i> Agregar usuario</button>
+              </div>
+          </div>
+        <div class="card-body">
+          
+
+          <div class="table-responsive table-users">
+            <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list" data-page-size="10">
+              <thead>
+                <tr>
+                  <!-- <th>No</th> -->
+                  <th>Nombre</th>
+                  <th>DNI</th>
+                  <th>Rol</th>
+                  <th>Sector</th>
+                  <th>Empresa</th>
+                  <th>Última modificación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of listUsers">
+                  <!-- <td *ngIf="user.id">{{ user.id }}</td> -->
+                  <td *ngIf="user.fullName">
+                    {{ user.fullName }}
+                  </td>
+                  <td *ngIf="user.fullName">
+                    {{ user.documentNumber }}
+                  </td>
+                  <td *ngIf="user.role">
+                    <span class="label" [ngClass]="getRoleById(user.role)">{{ listRoles[user.role-1].nameRole}}</span>
+                  </td>
+                  <td *ngIf="user.sector">{{user.sector}}</td>
+                  <td *ngIf="user.company && user.company.companyName">
+                    {{ user.company.companyName }}</td>
+                  <td *ngIf="user.updatedAt">{{ user.company.updatedAt | date }}</td>
+                  <!-- <td>
+                                            <button type="button"
+                                                class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn"
+                                                data-toggle="tooltip" data-original-title="Delete"><i class="ti-close"
+                                                    aria-hidden="true"></i></button>
+                                        </td> -->
+                </tr>
+              </tbody>
+              <!-- <tfoot>
+                                    <tr>
+                                        <td colspan="2">
+                                            
+                                        </td>
+                                    </tr>
+                                </tfoot> -->
+            </table>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- <ng-template #modalAddUser>
+    <section class="modal-user">
+      <div class="col-12 example-button-container text-right">
+        <button mat-mini-fab mat-dialog-close color="warn" aria-label="Example icon button with a filter list icon">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <h4 class="text-center title-modal">
+        Registrar nuevo usuario
+      </h4>
+      <form [formGroup]="userForm" class="form-horizontal form-material">
+        <div class="form-group col-md-12 m-b-20" [ngClass]="dni?.invalid && dni.touched ? 'has-error' : 'has-success'">
+          <input formControlName="dni" type="text" class="form-control" placeholder="DNI"
+            [appInputPattern]="controlsConfig.dni.pattern" [minLength]="controlsConfig.dni.minlength"
+            [maxLength]="controlsConfig.dni.maxlength">
+        </div>
+
+        <div class="form-group col-md-12 m-b-20"
+          [ngClass]="fullName?.invalid && fullName.touched ? 'has-error' : 'has-success'">
+          <input formControlName="fullName" type="text" class="form-control" placeholder="Nombres y apellidos"
+            [appInputPattern]="controlsConfig.nombre.pattern">
+        </div>
+
+        <div class="form-group col-md-12 m-b-20"
+          [ngClass]="role?.invalid && role.touched ? 'has-error' : 'has-success'">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="role">
+              <mat-option *ngFor="let rol of listRoles" [value]="rol.id">
+                {{rol.nameRole}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group col-md-12 m-b-20"
+          [ngClass]="sector?.invalid && sector.touched ? 'has-error' : 'has-success'">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Empresa</mat-label>
+            <mat-select formControlName="sector">
+              <mat-option *ngFor="let company of listCompanies" [value]="company">
+                {{company.companyName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="modal-footer">
+          <button (click)="submitUserForm()" type="submit"
+            class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" [disabled]="!userForm.valid">Agregar
+            usuario</button>
+        </div>
+
+      </form>
+    </section>
+  </ng-template> -->
+</div>

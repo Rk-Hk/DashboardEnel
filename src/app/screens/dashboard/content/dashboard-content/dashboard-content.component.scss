@@ -1,0 +1,32 @@
+#dashboardComponent div.card {
+    margin-top: 0px !important;
+    }
+    
+    #dashboardComponent ul li.rankList {
+        padding: 0.5rem 1.25rem !important;
+        cursor: pointer;
+        border-bottom: solid 1px #f1f2f3 !important;
+    }
+    
+    #dashboardComponent ul li.rankList:hover {
+        padding: 0.5rem 1.25rem !important;
+        background-color: #eaeaea;
+        border-bottom: solid 1px #f1f2f3 !important;
+    }
+    
+    #dashboardComponent ul li.rankList span, #dashboardComponent ul li.rankListMain span {
+        font-size: 0.9rem !important;
+        color: #fea11d;
+    }
+    
+    #dashboardComponent ul li.rankList small span{
+        font-size: 10px !important;
+        color: #737C87;
+    }
+    #dashboardComponent ul li.rankListMain {
+        background: #f44336;
+        color: white !important;
+        border-radius: 4px;
+        padding: 0.5rem 1.25rem !important;
+    }
+    

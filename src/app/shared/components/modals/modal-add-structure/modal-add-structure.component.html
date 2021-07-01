@@ -1,0 +1,54 @@
+<div>
+    
+    <div class="modal-header">
+        <h5 class="modal-title">Agregar Nueva Estructura</h5>
+        <button type="button" class="btn-close" (click)="onNoClick()"></button>
+      </div>
+      <div class="modal-body">
+        <form name="formNewStructure" [formGroup]="formNewStructure" autocomplete="off" class="form-horizontal form-material" style="width: 100%">
+          <mat-form-field appearance="outline" style="width: 50%; padding-right: 6px;">
+            <mat-label>Código de Estructura</mat-label>
+            <input matInput  formControlName="code" placeholder="Código de Estructura">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 50%; padding-left: 6px;">
+              <mat-label>Seleccione tipo de estructura</mat-label>
+              <mat-select  formControlName="structureType">
+                <mat-option *ngFor="let typeStruc of listTypeStructures" [value]="typeStruc">{{typeStruc}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline" style="width: 50%; padding-right: 6px;">
+              <mat-label>Seleccione la Zona</mat-label>
+              <mat-select formControlName="zone">
+                <mat-option  *ngFor="let itemZone of listFilterZone"  [value]="itemZone">{{itemZone}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" style="width: 50%; padding-left: 6px;">
+              <mat-label>Seleccione el Alimentador</mat-label>
+              <mat-select  formControlName="feeder" >
+                <mat-option  *ngFor="let itemfeeder of listFilterFeeder" [value]="itemfeeder">{{itemfeeder}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" style="width: 50%; padding-right: 6px;">
+              <mat-label>Seleccione el Circuito</mat-label>
+              <mat-select formControlName="circuitId" >
+                <mat-option  *ngFor="let itemcircuit of listFilterCircuit" [value]="itemcircuit">{{itemcircuit}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 50%; padding-left: 6px;">
+              <mat-label>Seleccione la Cadena</mat-label>
+              <mat-select formControlName="chain" >
+                <mat-option  *ngFor="let itemchain of listFilterChain" [value]="itemchain">{{itemchain}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+          <button (click)="onClick()" class="btn btn-primary btn-rounded" [disabled]="!formNewStructure.valid">Crear Estructura</button>
+      </div>
+</div>

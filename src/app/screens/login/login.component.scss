@@ -1,0 +1,117 @@
+.login-register {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(0,0,0,1);
+    background-image: url("/assets/img/background/enelBackground.jpg");
+    background-size: cover;
+}
+
+.card {
+    border-radius: 10px !important;
+}
+
+* {
+    font-size: 0.8rem;
+    color: white;
+}
+
+.content-photos {
+    position: relative;
+    margin: auto;
+    margin-top: 40px;
+    width: 80%;
+    height: 80%;
+}
+.photoStyle{
+    padding: 20px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+
+.login-box {
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    width: 350px;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+.login-box button {
+    padding: 0.25 !important;
+}
+
+.transparentblack{
+    width: 100%;
+    height: 20px;
+}
+
+#recoverform {
+    display: none;
+}
+
+.login-sidebar {
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.modal-header{
+    display: block;
+    border: none;
+}
+.modal-header h4 {
+    width: 100%;
+    text-align: center;
+}
+
+@media(max-width: 1024px){
+    .login-register .login-register_img{
+            width: 60%;}
+        .login-register .login-box {
+            width: 40%;
+        }
+    }
+
+
+@media(max-width: 768px){
+    .login-register .login-register_img{
+        
+            width: 50%;
+            background-position: center;
+        }
+        .login-register .login-box {
+            width: 50%;
+        }
+    
+    .col-display-img-left, .col-display-login {
+        width: 50%; ;
+    }
+    .col-display-img-right {
+        display: none;
+    }
+}
+
+@media(max-width: 575px){
+    .login-register .login-register_img{
+        
+            display: none;
+        }
+        .login-register .login-box {
+            width: 100%;
+            overflow-y: auto;
+        }
+    
+    .col-display-img-left {
+        display: none ;
+    }
+    .col-display-img-right {
+        display: none ;
+    }
+    .col-display-login {
+        width: 100%;
+    }
+}
